@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ऑर्डर मेन्यू</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      padding: 20px;
+    }
+    h1 {
+      color: #d2691e;
+      text-align: center;
+    }
+    form {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label, h2 {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .section {
+      margin-bottom: 15px;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      background-color: #d2691e;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #b85b1a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>हॉटेल मेन्यू - ऑर्डर फॉर्म</h1>
+  <form id="orderForm">
+    <div class="section">
+      <h2>आपला ऑर्डर प्रकार निवडा:</h2>
+      <label><input type="radio" name="orderType" value="Table" required>टेबल</label>
+      <label><input type="radio" name="orderType" value="Parcel">पार्सल</label>
+    </div>
+
+    <div class="section">
+      <label for="tableNo">टेबल नंबर (पार्सल असेल तर रिक्त ठेवा):</label><br>
+      <input type="number" id="tableNo" name="tableNo" placeholder="उदाहरण: 5">
+    </div>
+
+    <div class="section">
+      <h2>खाण्याच्या वस्तू निवडा:</h2>
+      <label><input type="checkbox" name="items" value="पोहा">पोहा ₹30</label><br>
+      <label><input type="checkbox" name="items" value="उपमा">उपमा ₹35</label><br>
+      <label><input type="checkbox" name="items" value="मिसळ पाव">मिसळ पाव ₹50</label><br>
+      <label><input type="checkbox" name="items" value="बटाटा वडा">बटाटा वडा ₹20</label><br>
+      <label><input type="checkbox" name="items" value="चहा">चहा ₹10</label>
+    </div>
+
+    <button type="submit" class="submit-btn">ऑर्डर सबमिट करा</button>
+  </form>
+
+  <script>
+    document.getElementById("orderForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const orderType = document.querySelector('input[name="orderType"]:checked').value;
+      const tableNo = document.getElementById("tableNo").value;
+      const items = Array.from(document.querySelectorAll('input[name="items"]:checked'))
+                          .map(checkbox => checkbox.value);
+
+      if (items.length === 0) {
+        alert("कृपया एक तरी पदार्थ निवडा.");
+        return;
+      }
+
+      let orderDetails = `ऑर्डर प्रकार: ${orderType}\n`;
+      if (orderType === "Table") orderDetails += `टेबल नं: ${tableNo}\n`;
+      orderDetails += `पदार्थ:\n - ${items.join("\n - ")}`;
+      
+      alert("तुमची ऑर्डर सबमिट झाली:\n\n" + orderDetails);
+    });
+  </script>
+
+</body>
+</html>
